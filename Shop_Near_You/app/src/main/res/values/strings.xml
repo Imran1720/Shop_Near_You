@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">SNY</string>
+
+    <string-array name="states">
+        <item>ANDHRA PRADESH</item>
+        <item>ARUNACHAL PRADESH</item>
+        <item>ASSAM</item>
+        <item>BIHAR</item>
+        <item>CHHATISGARH</item>
+        <item>GOA</item>
+        <item>GUJARAT</item>
+        <item>HARYANA</item>
+        <item>HIMACHAL PRADESH</item>
+        <item>JHARKHAND</item>
+        <item>KARNATAKA</item>
+        <item>KERALA</item>
+        <item>MADHYA PRADESH</item>
+        <item>MAHARASHTRA</item>
+        <item>MANIPUR</item>
+        <item>MEGHALAYA</item>
+        <item>MIZORAM</item>
+        <item>NAGALAND</item>
+        <item>ODISHA</item>
+        <item>PUNJAB</item>
+        <item>RAJASTHAN</item>
+        <item>SIKKIM</item>
+        <item>TAMIL NADU</item>
+        <item>TELENGANA</item>
+        <item>TRIPURA</item>
+        <item>UTTAR PRADESH</item>
+        <item>UTTRAKHAND</item>
+        <item>WEST BENGAL</item>
+
+
+    </string-array>
+    <string name="title_activity_ex">ex</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_seller_view">Seller_view</string>
+</resources>
