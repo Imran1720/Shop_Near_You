@@ -5,6 +5,10 @@ public class MyModel {
     String name,mail,phone,actype,state,district,village,address,id;
     String pname,pmax,pmin,pod,pld,prurl,pid;
 
+    public MyModel(String pid) {
+        this.pid = pid;
+    }
+
     public MyModel(String pname, String pmin, String pod, String prurl, String pid) {
         this.pname = pname;
         this.pmin = pmin;

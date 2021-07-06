@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
+android:id="@+id/adfrag"
     tools:context=".Seller_Products_Add">
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_weight="8"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -16,7 +27,6 @@
         android:textStyle="bold"
         android:background="#FF5E00"
         android:textColor="#FFFFFF"
-
         android:gravity="center"/>
 
     <LinearLayout
@@ -129,6 +139,10 @@
             android:background="@drawable/bb"
             android:layout_gravity="center"
             />
+    </LinearLayout>
+
+</LinearLayout>
+
 
     </LinearLayout>
 
@@ -138,5 +152,5 @@
 
 
 
-</LinearLayout>
+
 </layout>
