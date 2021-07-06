@@ -1,28 +1,34 @@
 package com.example.sny;
 
 import android.os.Bundle;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
+import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class SellerPage extends AppCompatActivity {
 
-    TabLayout tl;
-    ViewPager vp;
 
+    BottomNavigationView bv;
+    FrameLayout fl;
+    ImageView iv;
 
-    ArrayList<Fragment> fragmentsArraylist = new ArrayList<>();
-    ArrayList<String> fragmentTitle = new ArrayList<>();
+    //network objects
+    FirebaseAuth auth;
+    String uid;
+    DatabaseReference databaseReference;
 
 
 
@@ -32,48 +38,57 @@ public class SellerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_page);
 
-        tl=findViewById(R.id.tl);
-        vp = findViewById(R.id.vp);
-        tl.setupWithViewPager(vp);
+        bv = findViewById(R.id.bottom_nav);
+        fl = findViewById(R.id.framl);
+        iv= findViewById(R.id.profpic);
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(uid);
+        Sellerview();
 
-        VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFragment(new Seller_Products_List(),"PRODUCTS");
-        vpAdapter.addFragment(new Seller_Products_Add(),"ADD PRODUCTS");
-        vpAdapter.addFragment(new Seller_Products_Stat(),"STATISTICS");
-        vp.setAdapter(vpAdapter);
+        getSupportFragmentManager().beginTransaction().replace(R.id.framl,new Seller_Products_List()).commit();
 
+        LoadFragment();
 
     }
 
-    public class VPAdapter extends FragmentPagerAdapter{
+    private void LoadFragment() {
+        bv.setOnItemSelectedListener(item -> {
+            Fragment fragment = null;
 
-        public VPAdapter(@NonNull  FragmentManager fm, int behavior) {
-            super(fm, behavior);
-        }
+            switch (item.getItemId()) {
+                case R.id.slist:
+                    fragment = new Seller_Products_List();
+                    break;
 
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
+                case R.id.sadd:
+                    fragment = new Seller_Products_Add();
+                    break;
 
-            return fragmentsArraylist.get(position);
-        }
+                case R.id.sstat:
+                    fragment = new Seller_Products_Stat();
+                    break;
+            }
 
-        @Override
-        public int getCount() {
-            return fragmentsArraylist.size();
-        }
 
-        public void addFragment(Fragment fragment,String title)
-        {
-            fragmentsArraylist.add(fragment);
-            fragmentTitle.add(title);
-        }
+            getSupportFragmentManager().beginTransaction().replace(R.id.framl, fragment).commit();
 
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragmentTitle.get(position);
-        }
+            return true;
+        });
+
     }
 
+    private void Sellerview() {
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Glide.with(SellerPage.this).load(snapshot.child("url").getValue(String.class)).placeholder(R.drawable.ic_person_white).into(iv);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }
