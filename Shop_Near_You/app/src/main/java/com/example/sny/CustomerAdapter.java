@@ -20,7 +20,6 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
     Context ct;
     ArrayList<MyModel> list;
-    String id;
 
     public CustomerAdapter(Context ct, ArrayList<MyModel> list) {
         this.ct = ct;
@@ -34,7 +33,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull  CustomerAdapter.ViewHolder holder, int position) {
 
         Glide.with(ct).load(list.get(position).getPrul()).placeholder(R.drawable.ic_launcher_background).into(holder.iv);
         holder.name.setText(list.get(position).getPrname());
@@ -45,25 +44,22 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         holder.l.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ct,Seller_Products_details.class);
-                i.putExtra("proid",list.get(position).getPrid());
+                Intent i = new Intent(ct,Products_Customer.class);
+                i.putExtra("prodid",list.get(position).getPrid());
                 ct.startActivity(i);
             }
         });
-
-
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv;
         TextView name,cost,des;
         LinearLayout l;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             iv = itemView.findViewById(R.id.ppic);

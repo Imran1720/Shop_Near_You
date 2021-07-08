@@ -64,7 +64,7 @@ public class HomePage extends AppCompatActivity {
                     list.add(myModel);
                 }
 
-                SellerProductAdapter adapter = new SellerProductAdapter(HomePage.this,list);
+                CustomerAdapter adapter = new CustomerAdapter(HomePage.this,list);
                 rv.setAdapter(adapter);
                 rv.setLayoutManager(new LinearLayoutManager(HomePage.this));
             }
