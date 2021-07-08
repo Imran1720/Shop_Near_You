@@ -3,65 +3,9 @@ package com.example.sny;
 public class MyModel {
     String url;
     String name,mail,phone,actype,state,district,village,address,id;
-    String pname,pmax,pmin,pod,pld,prurl,pid;
+    String prul,prname,prmaxcost,prmincost,prcount,prcat,prsdes,prldes,prid;
 
-    public MyModel(String pid) {
-        this.pid = pid;
-    }
 
-    public MyModel(String pname, String pmin, String pod, String prurl, String pid) {
-        this.pname = pname;
-        this.pmin = pmin;
-        this.pod = pod;
-        this.prurl = prurl;
-        this.pid = pid;
-    }
-
-    public String getPid() {
-        return pid;
-    }
-
-    public MyModel(String pname, String pmax, String pmin, String pod, String pld, String prurl, String pid) {
-        this.pname = pname;
-        this.pmax = pmax;
-        this.pmin = pmin;
-        this.pod = pod;
-        this.pld = pld;
-        this.prurl = prurl;
-        this.pid = pid;
-    }
-
-    public String getPrurl() {
-        return prurl;
-    }
-    public String getPname() {
-        return pname;
-    }
-
-    public String getPmax() {
-        return pmax;
-    }
-
-    public String getPmin() {
-        return pmin;
-    }
-
-    public String getPod() {
-        return pod;
-    }
-
-    public String getPld() {
-        return pld;
-    }
-
-    public MyModel(String url, String name, String mail, String phone, String actype, String id) {
-        this.url = url;
-        this.name = name;
-        this.mail = mail;
-        this.phone = phone;
-        this.actype = actype;
-        this.id = id;
-    }
 
     public String getId() {
         return id;
@@ -103,6 +47,43 @@ public class MyModel {
         return address;
     }
 
+    public String getPrul() {
+        return prul;
+    }
+
+    public String getPrname() {
+        return prname;
+    }
+
+    public String getPrmaxcost() {
+        return prmaxcost;
+    }
+
+    public String getPrmincost() {
+        return prmincost;
+    }
+
+    public String getPrcount() {
+        return prcount;
+    }
+
+    public String getPrcat() {
+        return prcat;
+    }
+
+    public String getPrsdes() {
+        return prsdes;
+    }
+
+    public String getPrldes() {
+        return prldes;
+    }
+
+    public String getPrid() {
+        return prid;
+    }
+
+    //for registering
     public MyModel(String url, String name, String mail, String phone, String actype, String state, String district, String village, String address, String id) {
         this.url = url;
         this.name = name;
@@ -116,6 +97,35 @@ public class MyModel {
         this.id = id;
     }
 
+    //for admin to view data
+    public MyModel(String url, String name, String mail, String phone, String actype, String id) {
+        this.url = url;
+        this.name = name;
+        this.mail = mail;
+        this.phone = phone;
+        this.actype = actype;
+        this.id = id;
+    }
+
+    public MyModel(String prul, String prname, String prmaxcost, String prmincost, String prcount, String prcat, String prsdes, String prldes, String prid) {
+        this.prul = prul;
+        this.prname = prname;
+        this.prmaxcost = prmaxcost;
+        this.prmincost = prmincost;
+        this.prcount = prcount;
+        this.prcat = prcat;
+        this.prsdes = prsdes;
+        this.prldes = prldes;
+        this.prid = prid;
+    }
+
+    public MyModel(String prul, String prname, String prmincost, String prsdes, String prid) {
+        this.prul = prul;
+        this.prname = prname;
+        this.prmincost = prmincost;
+        this.prsdes = prsdes;
+        this.prid = prid;
+    }
 
 
 }

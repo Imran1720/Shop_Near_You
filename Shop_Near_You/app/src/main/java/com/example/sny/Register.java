@@ -1,5 +1,6 @@
 package com.example.sny;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -53,14 +54,20 @@ public class Register extends AppCompatActivity {
     DatabaseReference databaseReference;
     StorageReference storageReference;
 
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
+
+        pd = new ProgressDialog(this);
+        pd.setMessage("Registering...");
+        pd.setProgress(ProgressDialog.STYLE_SPINNER);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS");
         storageReference = FirebaseStorage.getInstance().getReference().child("SNY_USER_IMAGES/"+ UUID.randomUUID().toString());
+
 
 
 
@@ -187,6 +194,7 @@ public class Register extends AppCompatActivity {
 
 
     public void registeration(View view) {
+
         String un, em, ph, di, vi, hn, ar, lm, st, actype,address;
 
 
@@ -232,6 +240,7 @@ public class Register extends AppCompatActivity {
 
             if(emverified==true)
             {
+                pd.show();
                 storageReference.putFile(uri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -240,11 +249,11 @@ public class Register extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
 
                                 String url = uri.toString();
-
+                                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 MyModel myModel = new MyModel(url, un, em, ph, actype, st, di, vi,address,uid);
                                 databaseReference.child(uid).setValue(myModel);
                                 Toast.makeText(Register.this, "REGISTRATION COMPLETE", Toast.LENGTH_SHORT).show();
-
+                                pd.dismiss();
                                 startActivity(new Intent(Register.this, MainActivity.class));
 
 

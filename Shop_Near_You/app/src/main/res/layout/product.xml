@@ -64,15 +64,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SDES"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textColor="#626060"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/pcost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="COST"
-                android:textColor="#000000"
+                android:textColor="#FF0000"
                 android:textStyle="bold" />
 
 

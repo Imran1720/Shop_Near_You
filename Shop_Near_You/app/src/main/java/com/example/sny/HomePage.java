@@ -1,14 +1,14 @@
 package com.example.sny;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class HomePage extends AppCompatActivity {
 
 
+    RecyclerView rv;
     DatabaseReference databaseReference,cref;
     MyAdapter adapter;
     ImageView profile;
@@ -34,9 +35,10 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        rv = findViewById(R.id.crv);
         profile = findViewById(R.id.propic);
         auth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("PRODUCTS");
         cref =FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(auth.getCurrentUser().getUid());
 
 
@@ -47,18 +49,24 @@ public class HomePage extends AppCompatActivity {
 
 
         customerView();
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    //MyModel model = dataSnapshot.getValue(MyModel.class);
-                    //list.add(model);
+                    MyModel myModel = new MyModel(dataSnapshot.child("prul").getValue(String.class),
+                            dataSnapshot.child("prname").getValue(String.class),
+                            dataSnapshot.child("prmincost").getValue(String.class),
+                            dataSnapshot.child("prsdes").getValue(String.class),
+                            dataSnapshot.child("prid").getValue(String.class));
+                    list.add(myModel);
                 }
 
-
-
-
+                SellerProductAdapter adapter = new SellerProductAdapter(HomePage.this,list);
+                rv.setAdapter(adapter);
+                rv.setLayoutManager(new LinearLayoutManager(HomePage.this));
             }
 
             @Override
@@ -66,6 +74,7 @@ public class HomePage extends AppCompatActivity {
 
             }
         });
+
 
     }
 

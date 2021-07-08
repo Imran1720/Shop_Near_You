@@ -16,28 +16,25 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdapter.SHolder> {
+public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHolder> {
 
     Context ct;
     ArrayList<MyModel> list;
     String id;
 
-    public SellerProductAdapter(Context ct, ArrayList<MyModel> list) {
+    public CustomerAdapter(Context ct, ArrayList<MyModel> list) {
         this.ct = ct;
         this.list = list;
     }
 
-
-
     @NonNull
     @Override
-    public SHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SHolder(LayoutInflater.from(ct).inflate(R.layout.product,parent,false));
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(ct).inflate(R.layout.product,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SellerProductAdapter.SHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull CustomerAdapter.ViewHolder holder, int position) {
 
         Glide.with(ct).load(list.get(position).getPrul()).placeholder(R.drawable.ic_launcher_background).into(holder.iv);
         holder.name.setText(list.get(position).getPrname());
@@ -54,18 +51,20 @@ public class SellerProductAdapter extends RecyclerView.Adapter<SellerProductAdap
             }
         });
 
+
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 0;
     }
 
-    public class SHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv;
         TextView name,cost,des;
         LinearLayout l;
-        public SHolder(@NonNull View itemView) {
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             iv = itemView.findViewById(R.id.ppic);
             name = itemView.findViewById(R.id.pname);
