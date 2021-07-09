@@ -7,8 +7,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,64 +19,35 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class HomePage extends AppCompatActivity {
 
-
-    RecyclerView rv;
-    DatabaseReference databaseReference,cref;
-    MyAdapter adapter;
+    DatabaseReference cref;
     ImageView profile;
-    ArrayList<MyModel> list;
     FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
-        rv = findViewById(R.id.crv);
-        profile = findViewById(R.id.propic);
         auth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("PRODUCTS");
-        cref =FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(auth.getCurrentUser().getUid());
-
-
-
-
-        list =new ArrayList<>();
-        adapter = new MyAdapter(this,list);
-
-
+        profile = findViewById(R.id.propic);
+        cref = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(auth.getCurrentUser().getUid());
         customerView();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
-                    MyModel myModel = new MyModel(dataSnapshot.child("prul").getValue(String.class),
-                            dataSnapshot.child("prname").getValue(String.class),
-                            dataSnapshot.child("prmincost").getValue(String.class),
-                            dataSnapshot.child("prsdes").getValue(String.class),
-                            dataSnapshot.child("prid").getValue(String.class));
-                    list.add(myModel);
-                }
-
-                CustomerAdapter adapter = new CustomerAdapter(HomePage.this,list);
-                rv.setAdapter(adapter);
-                rv.setLayoutManager(new LinearLayoutManager(HomePage.this));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.hffl,new Home_Products()).commit();
 
 
+
+
+    }
+
+    private void LoadFragment(Fragment fragment) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.hffl,fragment).addToBackStack(null).commit();
     }
 
     private void customerView() {
@@ -100,6 +72,11 @@ public class HomePage extends AppCompatActivity {
 
     public void cart(View view) {
 
+        LoadFragment(new Cart());
 
+    }
+
+    public void home(View view) {
+        LoadFragment(new Home_Products());
     }
 }
