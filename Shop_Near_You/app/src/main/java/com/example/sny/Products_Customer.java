@@ -25,7 +25,7 @@ public class Products_Customer extends AppCompatActivity {
         setContentView(R.layout.activity_products_customer);
 
         id= getIntent().getStringExtra("prodid");
-       
+
 
         iv= findViewById(R.id.prpic);
         name= findViewById(R.id.prname);

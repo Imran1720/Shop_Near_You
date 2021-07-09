@@ -37,11 +37,13 @@
             android:textSize="50sp"
             android:textStyle="bold" />
 
+
         <ImageView
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:padding="10dp"
+            android:onClick="cart"
             android:src="@drawable/ic_cart" />
 
     </LinearLayout>
@@ -54,18 +56,4 @@
             android:layout_below="@+id/head"
             android:id="@+id/crv"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/signout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bb"
-            android:onClick="sigout"
-            android:text="logout" />
-    </LinearLayout>
 </RelativeLayout>

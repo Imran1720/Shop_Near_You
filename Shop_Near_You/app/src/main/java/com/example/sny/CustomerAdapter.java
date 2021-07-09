@@ -35,7 +35,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull  CustomerAdapter.ViewHolder holder, int position) {
 
-        Glide.with(ct).load(list.get(position).getPrul()).placeholder(R.drawable.ic_launcher_background).into(holder.iv);
+        Glide.with(ct).load(list.get(position).getPrul()).error(R.drawable.ic_launcher_background).placeholder(R.drawable.ic_launcher_background).into(holder.iv);
         holder.name.setText(list.get(position).getPrname());
         holder.des.setText(list.get(position).getPrsdes());
         holder.cost.setText("₹"+list.get(position).getPrmincost());

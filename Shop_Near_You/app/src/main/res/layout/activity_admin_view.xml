@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,15 +9,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_alignParentTop="true"
         android:background="#FF5E00"
+        android:id="@+id/avhead"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:padding="10dp"
-
+            android:onClick="viewdetail"
             app:civ_border_color="@color/black"
             app:civ_border_width="1dp"
             android:id="@+id/profilepic"
@@ -35,37 +36,24 @@
             android:textSize="50sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:padding="10dp"
-            android:paddingRight="2dp"
-            android:src="@drawable/ic_cart" />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="8"
-        android:id="@+id/rv"/>
-
-
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#DFDFDF"
-        android:gravity="center">
+        android:layout_below="@+id/avhead"
+        android:id="@+id/adfl"
+        />
 
-        <Button
-            android:id="@+id/signout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bb"
-            android:onClick="logout"
-            android:text="logout" />
-    </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bnv"
+        app:menu="@menu/adm"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="#FF5E00"
+        app:itemTextColor="#FF5E00"
+        android:layout_alignParentBottom="true"/>
 
-</LinearLayout>
+</RelativeLayout>

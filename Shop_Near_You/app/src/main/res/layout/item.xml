@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:id="@+id/llayoyt"
-
         android:orientation="horizontal">
 
 
@@ -34,37 +33,45 @@
                 android:id="@+id/dname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-
+                android:drawableLeft="@drawable/ic_asel"
+                android:drawablePadding="5dp"
                 android:text="NAME"
-
                 android:textColor="#000000"
-
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <TextView
                 android:id="@+id/demail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="EMAIL"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_baseline_account_balance_24"
                 android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/dnumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NUMBER"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_baseline_phone_iphone_24"
                 android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/dactype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ACCOUNTTYPE"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_baseline_account_balance_24"
                 android:textColor="#000000"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"/>
 
 
         </LinearLayout>

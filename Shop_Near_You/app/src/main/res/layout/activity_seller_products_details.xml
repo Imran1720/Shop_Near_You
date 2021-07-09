@@ -184,7 +184,7 @@
             android:textStyle="bold|italic"
 
             android:layout_marginLeft="50dp"
-            android:textSize="20sp"
+            android:textSize="15sp"
             />
     </LinearLayout>
 

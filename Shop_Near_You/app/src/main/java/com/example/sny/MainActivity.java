@@ -1,5 +1,6 @@
 package com.example.sny;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText email,pass;
     FirebaseAuth auth;
+    ProgressDialog pd;
 
     DatabaseReference databaseReference;
     @Override
@@ -35,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         pass = findViewById(R.id.pass);
         auth = FirebaseAuth.getInstance();
+
+        pd = new ProgressDialog(this);
+        pd.setMessage("LOGGIGING YOU IN...");
+        pd.setProgress(ProgressDialog.STYLE_SPINNER);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS");
 
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
                     {
+                        pd.show();
 
 
                         databaseReference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
@@ -58,15 +65,17 @@ public class MainActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if(snapshot.child("actype").getValue(String.class).equals("ADMIN"))
                                 {
+                                    pd.dismiss();
                                     startActivity(new Intent(MainActivity.this,AdminView.class));
                                 }
                                 else if (snapshot.child("actype").getValue(String.class).equals("CUSTOMER"))
                                 {
+                                    pd.dismiss();
                                     startActivity(new Intent(MainActivity.this,HomePage.class));
                                 }
                                 else
                                 {
-
+                                    pd.dismiss();
                                     startActivity(new Intent(MainActivity.this,SellerPage.class));
                                 }
 
