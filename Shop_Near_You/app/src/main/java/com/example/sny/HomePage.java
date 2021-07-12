@@ -83,6 +83,7 @@ public class HomePage extends AppCompatActivity {
     public void logout(View view) {
         auth.signOut();
         startActivity(new Intent(HomePage.this,MainActivity.class));
+        finish();
     }
 
     public void cart(View view) {

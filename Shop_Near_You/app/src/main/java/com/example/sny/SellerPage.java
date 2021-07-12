@@ -46,6 +46,7 @@ public class SellerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_page);
 
+
         bv = findViewById(R.id.bottom_nav);
         fl = findViewById(R.id.framl);
         iv= findViewById(R.id.profilepic);
@@ -77,8 +78,8 @@ public class SellerPage extends AppCompatActivity {
                     fragment = new Seller_Products_Add();
                     break;
 
-                case R.id.sstat:
-                    fragment = new Seller_Products_Stat();
+                case R.id.orders:
+                    fragment = new Seller_Products_orders();
                     break;
             }
 
@@ -133,6 +134,7 @@ public class SellerPage extends AppCompatActivity {
 
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(SellerPage.this,MainActivity.class));
+        finish();
 
     }
 

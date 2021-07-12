@@ -238,7 +238,7 @@ public class Register extends AppCompatActivity {
 
         else {
 
-            if(emverified==true)
+            if(emverified==true && mverified==true)
             {
                 pd.show();
                 storageReference.putFile(uri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -249,7 +249,7 @@ public class Register extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
 
                                 String url = uri.toString();
-                                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                                 MyModel myModel = new MyModel(url, un, em, ph, actype, st, di, vi,address,uid);
                                 databaseReference.child(uid).setValue(myModel);
                                 Toast.makeText(Register.this, "REGISTRATION COMPLETE", Toast.LENGTH_SHORT).show();

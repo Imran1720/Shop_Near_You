@@ -43,7 +43,9 @@ public class AdminView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_view);
 
+
         drawerLayout =findViewById(R.id.drawer_layout);
+
 
         p =findViewById(R.id.profilepic);
         pic =findViewById(R.id.pic);
@@ -126,6 +128,7 @@ public class AdminView extends AppCompatActivity {
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(AdminView.this,MainActivity.class));
+        finish();
     }
 
 

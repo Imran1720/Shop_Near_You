@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -21,8 +22,11 @@ import androidx.fragment.app.Fragment;
 import com.example.sny.databinding.FragmentSellerProductsAddBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -41,11 +45,11 @@ public class Seller_Products_Add extends Fragment {
     //progress Dialog
     ProgressDialog pd;
     //current user id
-    String uid;
+    String uid,sname;
     //product photo
     Uri uri;
     //random uuid for photo
-    String picid;
+    String picid,sid;
 
 
     @Override
@@ -59,9 +63,20 @@ public class Seller_Products_Add extends Fragment {
 
         //network objs
         uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(uid).child("PRODUCTS");
         storageReference = FirebaseStorage.getInstance().getReference().child("SNY_USER_IMAGES/"+picid);
         prdref = FirebaseDatabase.getInstance().getReference().child("SNY").child("PRODUCTS");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(uid);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sname = snapshot.child("name").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //progress dialog
         pd=new ProgressDialog(getActivity());
@@ -116,14 +131,12 @@ public class Seller_Products_Add extends Fragment {
                                         fragmentSellerProductsAddBinding.cate.getText().toString(),
                                         fragmentSellerProductsAddBinding.psdes.getText().toString(),
                                         fragmentSellerProductsAddBinding.ldes.getText().toString(),
-                                        picid);
+                                        picid,sname,uid);
 
                                 Thread mThread = new Thread() {
                                     @Override
                                     public void run() {
-                                        databaseReference.child(picid).setValue(myModel);
                                         prdref.child(picid).setValue(myModel);
-                                        prdref.child(picid).child("sellerid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                                         pd.dismiss();
                                     }

@@ -34,15 +34,53 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        email = findViewById(R.id.email);
-        pass = findViewById(R.id.pass);
+
         auth = FirebaseAuth.getInstance();
 
         pd = new ProgressDialog(this);
         pd.setMessage("LOGGIGING YOU IN...");
         pd.setProgress(ProgressDialog.STYLE_SPINNER);
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS");
+
+        if(auth.getCurrentUser()!= null)
+        {
+            pd.show();
+            databaseReference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child("actype").getValue(String.class).equals("ADMIN"))
+                    {
+                        pd.dismiss();
+                        startActivity(new Intent(MainActivity.this,AdminView.class));
+
+                    }
+                    else if (snapshot.child("actype").getValue(String.class).equals("CUSTOMER"))
+                    {
+                        pd.dismiss();
+                        startActivity(new Intent(MainActivity.this,HomePage.class));
+
+                    }
+                    else
+                    {
+                        pd.dismiss();
+                        startActivity(new Intent(MainActivity.this,SellerPage.class));
+
+                    }
+                    finish();
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+        email = findViewById(R.id.email);
+        pass = findViewById(R.id.pass);
 
     }
 

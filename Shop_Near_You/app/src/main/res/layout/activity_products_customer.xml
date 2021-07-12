@@ -207,6 +207,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bb"
+                    android:onClick="buy"
                     android:text="buy"/>
 
 
@@ -215,6 +216,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bb"
                     android:padding="10dp"
+                    android:onClick="addcart"
                     android:layout_marginLeft="20dp"
                     android:text="add to cart"/>
 

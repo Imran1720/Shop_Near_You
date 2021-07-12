@@ -4,6 +4,8 @@ public class MyModel {
     String url;
     String name,mail,phone,actype,state,district,village,address,id;
     String prul,prname,prmaxcost,prmincost,prcount,prcat,prsdes,prldes,prid;
+    String Cid,Cnumber,Cname;
+    String sname,sid;
 
 
 
@@ -59,6 +61,26 @@ public class MyModel {
         return prmaxcost;
     }
 
+    public String getCid() {
+        return Cid;
+    }
+
+    public String getCnumber() {
+        return Cnumber;
+    }
+
+    public String getCname() {
+        return Cname;
+    }
+
+    public String getSname() {
+        return sname;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
     public String getPrmincost() {
         return prmincost;
     }
@@ -107,7 +129,22 @@ public class MyModel {
         this.id = id;
     }
 
-    public MyModel(String prul, String prname, String prmaxcost, String prmincost, String prcount, String prcat, String prsdes, String prldes, String prid) {
+    public MyModel(String prul, String prname, String prmincost, String prsdes, String prid) {
+        this.prul = prul;
+        this.prname = prname;
+        this.prmincost = prmincost;
+        this.prsdes = prsdes;
+        this.prid = prid;
+    }
+
+    public MyModel(String cid, String cnumber, String cname) {
+        Cid = cid;
+        Cnumber = cnumber;
+        Cname = cname;
+    }
+
+
+    public MyModel(String prul, String prname, String prmaxcost, String prmincost, String prcount, String prcat, String prsdes, String prldes, String prid, String sname, String sid) {
         this.prul = prul;
         this.prname = prname;
         this.prmaxcost = prmaxcost;
@@ -117,15 +154,8 @@ public class MyModel {
         this.prsdes = prsdes;
         this.prldes = prldes;
         this.prid = prid;
+        this.sname = sname;
+        this.sid = sid;
     }
-
-    public MyModel(String prul, String prname, String prmincost, String prsdes, String prid) {
-        this.prul = prul;
-        this.prname = prname;
-        this.prmincost = prmincost;
-        this.prsdes = prsdes;
-        this.prid = prid;
-    }
-
-
 }
+

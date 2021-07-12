@@ -9,7 +9,7 @@
         android:icon="@drawable/ic__add_shopping"
         android:title=""/>
 
-    <item android:id="@+id/sstat"
+    <item android:id="@+id/orders"
         android:icon="@drawable/ic_history"
         android:title=""/>
 

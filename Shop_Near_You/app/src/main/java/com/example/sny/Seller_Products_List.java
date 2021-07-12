@@ -38,7 +38,7 @@ public class Seller_Products_List extends Fragment {
         uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         databaseReference= FirebaseDatabase.getInstance().getReference().child("SNY").
-                child("USERS").child(uid).child("PRODUCTS");
+                child("PRODUCTS");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -46,12 +46,15 @@ public class Seller_Products_List extends Fragment {
                 list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    MyModel myModel = new MyModel(dataSnapshot.child("prul").getValue(String.class),
-                            dataSnapshot.child("prname").getValue(String.class),
-                            dataSnapshot.child("prmincost").getValue(String.class),
-                            dataSnapshot.child("prsdes").getValue(String.class),
-                            dataSnapshot.child("prid").getValue(String.class));
-                    list.add(myModel);
+                    if (dataSnapshot.child("sid").getValue(String.class).equals(uid))
+                    {
+                        MyModel myModel = new MyModel(dataSnapshot.child("prul").getValue(String.class),
+                                dataSnapshot.child("prname").getValue(String.class),
+                                dataSnapshot.child("prmincost").getValue(String.class),
+                                dataSnapshot.child("prsdes").getValue(String.class),
+                                dataSnapshot.child("prid").getValue(String.class));
+                        list.add(myModel);
+                    }
                 }
 
                 SellerProductAdapter adapter = new SellerProductAdapter(getActivity(),list);

@@ -1,6 +1,8 @@
 package com.example.sny;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +20,8 @@ public class Products_Customer extends AppCompatActivity {
 
     ImageView iv;
     TextView name,cost,sdes,ldes;
-    String id;
+    String id,uid;
+    ProgressDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,8 @@ public class Products_Customer extends AppCompatActivity {
                 child("SNY").
                 child("PRODUCTS").child(id);
 
+
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -50,6 +55,8 @@ public class Products_Customer extends AppCompatActivity {
                 sdes.setText(snapshot.child("prsdes").getValue(String.class));
                 ldes.setText(snapshot.child("prldes").getValue(String.class));
 
+                uid=snapshot.child("sid").getValue(String.class);
+
             }
 
             @Override
@@ -59,5 +66,13 @@ public class Products_Customer extends AppCompatActivity {
         });
 
 
+    }
+
+    public void buy(View view) {
+
+
+    }
+
+    public void addcart(View view) {
     }
 }
