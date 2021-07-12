@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -24,8 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 public class AdminView extends AppCompatActivity {
 
 
+    DrawerLayout drawerLayout;
+    Toolbar toolbar;
+
+    TextView sbname,sbmail;
+
     DatabaseReference aref;
-    ImageView p;
+    ImageView p,pic;
     BottomNavigationView bv;
     FrameLayout fl;
 
@@ -34,12 +43,21 @@ public class AdminView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_view);
 
+        drawerLayout =findViewById(R.id.drawer_layout);
+
+        p =findViewById(R.id.profilepic);
+        pic =findViewById(R.id.pic);
+
+        sbmail=findViewById(R.id.sbemail);
+        sbname=findViewById(R.id.sbname);
+
         bv = findViewById(R.id.bnv);
        fl = findViewById(R.id.adfl);
-        p = findViewById(R.id.profilepic);
+
         String uid;
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         aref = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(uid);
+
         adminview();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -47,6 +65,7 @@ public class AdminView extends AppCompatActivity {
         loadframe();
 
     }
+
 
     private void loadframe() {
 
@@ -68,12 +87,32 @@ public class AdminView extends AppCompatActivity {
 
     }
 
+    public void openDrawer(View v){
+
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+
+    public void closeDrawer(View view)
+    {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+
+
     private void adminview() {
         aref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 Glide.with(AdminView.this).load(snapshot.child("url").getValue(String.class)).placeholder(R.drawable.ic_person_white).into(p);
+                Glide.with(AdminView.this).load(snapshot.child("url").getValue(String.class)).placeholder(R.drawable.ic_person_white).into(pic);
+                sbmail.setText(snapshot.child("mail").getValue(String.class));
+                sbname.setText(snapshot.child("name").getValue(String.class));
+
+
             }
 
             @Override
@@ -89,10 +128,31 @@ public class AdminView extends AppCompatActivity {
         startActivity(new Intent(AdminView.this,MainActivity.class));
     }
 
-    public void viewdetail(View view) {
-        Intent i = new Intent(this,admin_users_detail.class);
-        i.putExtra("id",FirebaseAuth.getInstance().getCurrentUser().getUid());
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(i);
+
+    public void home(View view) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.adfl,new Admin_Customer()).commit();
+        closeDrawer(drawerLayout);
+
     }
+
+    public void customers(View view) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.adfl,new Admin_Customer()).commit();
+        closeDrawer(drawerLayout);
+    }
+
+    public void sellers(View view) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.adfl,new Admin_Seller()).commit();
+        closeDrawer(drawerLayout);
+    }
+
+
 }

@@ -1,11 +1,17 @@
 package com.example.sny;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -23,10 +29,12 @@ public class SellerPage extends AppCompatActivity {
 
     BottomNavigationView bv;
     FrameLayout fl;
-    ImageView iv;
+    ImageView iv,pic;
+    TextView name,mail;
+    DrawerLayout drawerLayout;
+
 
     //network objects
-    FirebaseAuth auth;
     String uid;
     DatabaseReference databaseReference;
 
@@ -40,7 +48,12 @@ public class SellerPage extends AppCompatActivity {
 
         bv = findViewById(R.id.bottom_nav);
         fl = findViewById(R.id.framl);
-        iv= findViewById(R.id.profpic);
+        iv= findViewById(R.id.profilepic);
+        pic= findViewById(R.id.pic);
+
+        drawerLayout = findViewById(R.id.s_drawer_layout);
+        name = findViewById(R.id.sbname);
+        mail = findViewById(R.id.sbemail);
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(uid);
         Sellerview();
@@ -83,6 +96,12 @@ public class SellerPage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Glide.with(SellerPage.this).load(snapshot.child("url").getValue(String.class)).placeholder(R.drawable.ic_person_white).into(iv);
+                Glide.with(SellerPage.this).load(snapshot.child("url").getValue(String.class)).placeholder(R.drawable.ic_person_white).into(pic);
+
+                name.setText(snapshot.child("name").getValue(String.class));
+                mail.setText(snapshot.child("mail").getValue(String.class));
+
+
             }
 
             @Override
@@ -90,5 +109,43 @@ public class SellerPage extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public  void home(View view)
+    {
+        getSupportFragmentManager().beginTransaction().replace(R.id.framl, new Seller_Products_List()).commit();
+        closeDrawer(drawerLayout);
+    }
+
+    public  void order(View view)
+    {
+        Toast.makeText(this, "orders", Toast.LENGTH_SHORT).show();
+        closeDrawer(drawerLayout);
+    }
+    public  void products(View view)
+    {
+        Toast.makeText(this, "products", Toast.LENGTH_SHORT).show();
+        closeDrawer(drawerLayout);
+    }
+    public  void logout(View view)
+    {
+
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(SellerPage.this,MainActivity.class));
+
+    }
+
+    public void openDrawer(View view)
+    {
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void closeDrawer(View view)
+    {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
     }
 }

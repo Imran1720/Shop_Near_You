@@ -1,53 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:id="@+id/h_drawer_layout"
     tools:context=".HomePage">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_alignParentTop="true"
-        android:background="#FF5E00"
-        android:id="@+id/head"
-        android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="10dp"
-
-
-            android:id="@+id/propic"
-            app:civ_border_color="@color/black"
-            app:civ_border_width="1dp" />
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/days_one"
-            android:gravity="center"
-            android:text="SNY"
-            android:textColor="#FFFFFF"
-            android:textSize="50sp"
-            android:onClick="home"
-            android:textStyle="bold" />
-
-
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:padding="10dp"
-            android:onClick="cart"
-            android:src="@drawable/ic_cart" />
-
-    </LinearLayout>
+        android:layout_height="match_parent">
+   <include layout="@layout/custom_toolbar"
+       android:id="@+id/head"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -56,6 +21,13 @@
         android:layout_below="@+id/head"/>
 
 
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start">
+        <include layout="@layout/h_nav_head"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

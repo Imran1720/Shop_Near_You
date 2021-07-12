@@ -1,43 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
     android:orientation="vertical"
     tools:context=".AdminView">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="#FF5E00"
-        android:id="@+id/avhead"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:padding="10dp"
-            android:onClick="viewdetail"
-            app:civ_border_color="@color/black"
-            app:civ_border_width="1dp"
-            android:id="@+id/profilepic"
-
-            />
-
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/days_one"
-            android:gravity="center"
-            android:text="SNY"
-            android:textColor="#FFFFFF"
-            android:textSize="50sp"
-            android:textStyle="bold" />
-
-
-    </LinearLayout>
+        <include layout="@layout/custom_toolbar2"
+            android:id="@+id/avhead"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -57,3 +32,13 @@
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:background="?android:attr/windowBackground"
+        android:layout_gravity="start">
+
+        <include layout="@layout/nav_head"/>
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

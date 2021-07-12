@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:background="#FF5E00">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <ImageView
+               android:layout_width="100dp"
+               android:layout_height="100dp"
+
+               android:layout_margin="5dp"
+               android:id="@+id/pic"
+               android:src="@drawable/ic_launcher_background"/>
+
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="150dp"
+               android:layout_gravity="right"
+               android:onClick="closeDrawer"
+               android:background="#FFFFFF"
+               android:src="@drawable/ic_close" />
+       </LinearLayout>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="NAME"
+           android:id="@+id/sbname"
+           android:textStyle="bold"
+           android:textColor="#FFFFFF"
+           android:layout_marginLeft="5dp"
+           android:layout_marginTop="2dp"
+           android:textSize="16dp"/>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="16dp"
+           android:textStyle="bold"
+           android:textColor="#FFFFFF"
+           android:layout_marginBottom="5dp"
+           android:layout_marginLeft="5dp"
+           android:id="@+id/sbemail"
+           android:layout_marginTop="2dp"
+           android:text="EMAIL"/>
+
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"
+            android:onClick="home"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customers"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"
+            android:onClick="customers"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sellers"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"
+            android:onClick="sellers"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:padding="12dp"
+            android:layout_marginStart="16dp"
+            android:onClick="logout"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+
