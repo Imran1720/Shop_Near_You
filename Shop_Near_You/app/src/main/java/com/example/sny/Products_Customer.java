@@ -1,15 +1,17 @@
-package com.example.sny;
+ package com.example.sny;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +24,7 @@ public class Products_Customer extends AppCompatActivity {
     TextView name,cost,sdes,ldes;
     String id,uid;
     ProgressDialog pd;
+    DatabaseReference ccart,databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +39,8 @@ public class Products_Customer extends AppCompatActivity {
         sdes= findViewById(R.id.psd);
         ldes= findViewById(R.id.pdesc);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().
+        ccart = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("CART").child(id);
+        databaseReference = FirebaseDatabase.getInstance().getReference().
                 child("SNY").
                 child("PRODUCTS").child(id);
 
@@ -71,8 +75,21 @@ public class Products_Customer extends AppCompatActivity {
     public void buy(View view) {
 
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ORDERS");
+
+        reference.child(id).child("prid").setValue(id);
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("CART");
+        databaseReference.child(id).removeValue();
+        Toast.makeText(this, "PRODUCT HAS BEEN ORDERED", Toast.LENGTH_SHORT).show();
+
     }
 
     public void addcart(View view) {
+
+        ccart.child("prid").setValue(id);
     }
 }
