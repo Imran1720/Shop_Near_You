@@ -10,12 +10,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,6 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     Context ct;
     ArrayList<MyModel> list;
+    String sid;
 
 
 
@@ -48,15 +53,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
-                        child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ORDERS");
-
-                reference.child(list.get(position).getPrid()).child("prid").setValue(list.get(position).getPrid());
+                String id =list.get(position).getPrid();
+                getProductSeller(id);
 
 
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
                         child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("CART");
                 databaseReference.child(list.get(position).getPrid()).removeValue();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framl, new Cart()).commit();
                 Toast.makeText(ct, "PRODUCT HAS BEEN ORDERED", Toast.LENGTH_SHORT).show();
 
             }
@@ -68,11 +73,48 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
                         child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("CART");
                 databaseReference.child(list.get(position).getPrid()).removeValue();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framl, new Cart()).commit();
                 Toast.makeText(ct, "PRODUCTS REMOVED FROM CART", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+    private void getProductSeller(String id) {
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("PRODUCTS").
+                child(id);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               sid = snapshot.child("sid").getValue(String.class);
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
+                        child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ORDERS");
+
+                reference.child(id).child("prid").setValue(id);
+                reference.child(id).child("status").setValue("Processing...");
+                reference.child(id).child("sid").setValue(sid);
+
+
+                DatabaseReference Sreference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
+                        child(sid).child("ORDERS");
+
+                Sreference.child(id).child("prid").setValue(id);
+                Sreference.child(id).child("status").setValue("Processing");
+                Sreference.child(id).child("cid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
 
     @Override
     public int getItemCount() {

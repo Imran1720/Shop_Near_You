@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -93,7 +92,7 @@ public class HomePage extends AppCompatActivity {
 
     public void order(View view)
     {
-        Toast.makeText(this, "this is your orders", Toast.LENGTH_SHORT).show();
+        LoadFragment(new CustomerOrder());
         closeDrawer(drawerLayout);
     }
 

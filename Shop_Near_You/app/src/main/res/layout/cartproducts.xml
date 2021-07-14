@@ -97,7 +97,7 @@
             <Button
                 android:layout_width="100dp"
                 android:layout_height="30dp"
-                android:text="BUY"
+                android:text="order"
                 android:background="@drawable/bb"
                 android:layout_marginRight="20dp"
                 android:id="@+id/cpbuy"/>

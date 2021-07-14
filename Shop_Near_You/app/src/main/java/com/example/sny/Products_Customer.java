@@ -22,7 +22,7 @@ public class Products_Customer extends AppCompatActivity {
 
     ImageView iv;
     TextView name,cost,sdes,ldes;
-    String id,uid;
+    String id,sid;
     ProgressDialog pd;
     DatabaseReference ccart,databaseReference;
     @Override
@@ -59,7 +59,7 @@ public class Products_Customer extends AppCompatActivity {
                 sdes.setText(snapshot.child("prsdes").getValue(String.class));
                 ldes.setText(snapshot.child("prldes").getValue(String.class));
 
-                uid=snapshot.child("sid").getValue(String.class);
+                sid=snapshot.child("sid").getValue(String.class);
 
             }
 
@@ -77,10 +77,20 @@ public class Products_Customer extends AppCompatActivity {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ORDERS");
-
+        //in customer->orders=>product id,seller id
         reference.child(id).child("prid").setValue(id);
+        reference.child(id).child("sid").setValue(sid);
+        reference.child(id).child("status").setValue("Processing...");
 
+        //in seller->orders=>product id,customr id
+        DatabaseReference Sreference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
+                child(sid).child("ORDERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+        Sreference.child(id).child("prid").setValue(id);
+        Sreference.child(id).child("status").setValue("Processing");
+        Sreference.child(id).child("cid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        //remove item from cart on order
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("CART");
         databaseReference.child(id).removeValue();
