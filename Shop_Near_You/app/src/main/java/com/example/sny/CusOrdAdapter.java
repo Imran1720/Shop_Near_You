@@ -102,8 +102,8 @@ public class CusOrdAdapter extends RecyclerView.Adapter<CusOrdAdapter.ViewHolder
                         DatabaseReference dr2= FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
                                 child(list.get(position).getSid()).child("ORDERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(list.get(position).pid);
 
-                        dr.removeValue();
-                        dr2.removeValue();
+                        dr.onDisconnect().removeValue();
+                        dr2.onDisconnect().removeValue();
 
 
                         Toast.makeText(ct, "ORDER HAS BEEN CANCLED", Toast.LENGTH_SHORT).show();

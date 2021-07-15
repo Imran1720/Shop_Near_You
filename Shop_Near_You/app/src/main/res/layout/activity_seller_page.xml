@@ -33,7 +33,7 @@
         app:itemIconSize="30dp"
         android:translationZ="2dp"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
+        android:background="#FFFFFF"
         app:itemIconTint="#FF5E00"/>
 
     </RelativeLayout>
