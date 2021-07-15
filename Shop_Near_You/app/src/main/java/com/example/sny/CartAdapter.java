@@ -1,5 +1,6 @@
 package com.example.sny;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     Context ct;
     ArrayList<MyModel> list;
     String sid;
+    ProgressDialog pd;
 
 
 
@@ -57,12 +59,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 getProductSeller(id);
 
 
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
-                        child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("CART");
-                databaseReference.child(list.get(position).getPrid()).removeValue();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framl, new Cart()).commit();
-                Toast.makeText(ct, "PRODUCT HAS BEEN ORDERED", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -70,12 +66,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
-                        child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("CART");
-                databaseReference.child(list.get(position).getPrid()).removeValue();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.framl, new Cart()).commit();
-                Toast.makeText(ct, "PRODUCTS REMOVED FROM CART", Toast.LENGTH_SHORT).show();
+                pd = new ProgressDialog(v.getContext());
+                pd.setProgress(ProgressDialog.STYLE_SPINNER);
+                pd.setMessage("Removing...");
+                pd.show();
+
+                DatabaseReference d = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("CART").child(list.get(position).getPrid());
+
+                d.removeValue();
+
+
+
+
+                pd.dismiss();
+                Toast.makeText(ct, "PRODUCT REMOVED FROM CART", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -93,18 +98,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
                         child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ORDERS");
-
+                //in customer->orders=>product id,seller id
                 reference.child(id).child("prid").setValue(id);
-                reference.child(id).child("status").setValue("Processing...");
                 reference.child(id).child("sid").setValue(sid);
+                reference.child(id).child("status").setValue("Processing...");
 
-
+                //in seller->orders=>product id,customr id
                 DatabaseReference Sreference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
-                        child(sid).child("ORDERS");
+                        child(sid).child("ORDERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                 Sreference.child(id).child("prid").setValue(id);
                 Sreference.child(id).child("status").setValue("Processing");
                 Sreference.child(id).child("cid").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+
+
+
+                DatabaseReference d = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("CART").child(id);
+
+                d.removeValue();
+                Toast.makeText(ct, "PRODUCT HAS BEEN ORDERED", Toast.LENGTH_SHORT).show();
             }
 
             @Override

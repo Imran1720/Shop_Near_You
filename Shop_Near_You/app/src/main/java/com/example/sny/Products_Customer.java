@@ -1,6 +1,7 @@
  package com.example.sny;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -101,5 +102,7 @@ public class Products_Customer extends AppCompatActivity {
     public void addcart(View view) {
 
         ccart.child("prid").setValue(id);
+        Toast.makeText(this, "PRODUCT WAS ADDED TO THE CART", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,HomePage.class));
     }
 }

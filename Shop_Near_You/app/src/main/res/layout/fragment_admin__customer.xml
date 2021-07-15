@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Admin_Customer"
+    android:background="#FFFFFF"
     android:id="@+id/facrv">
 
 

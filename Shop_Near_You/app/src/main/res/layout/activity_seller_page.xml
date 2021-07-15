@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/s_drawer_layout"
+    android:background="#FFFFFF"
     tools:context=".SellerPage">
 
     <RelativeLayout

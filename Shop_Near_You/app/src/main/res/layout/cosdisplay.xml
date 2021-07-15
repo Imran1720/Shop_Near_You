@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
+    android:background="#FFFFFF"
     android:layout_height="wrap_content">
 
     <TextView
@@ -62,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:id="@+id/note"
         android:text="Note : please try to contact seller using above details for confirmation."
         android:textColor="#FF0000"/>
 

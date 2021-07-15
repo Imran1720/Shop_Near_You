@@ -27,7 +27,7 @@
                 android:layout_weight="1">
 
                 <ImageView
-                    android:id="@+id/prdpic"
+                    android:id="@+id/sprdpic"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_launcher_background" />
@@ -45,7 +45,7 @@
                     android:text="NAME"
                     android:textColor="#000000"
                     android:textStyle="bold"
-                    android:id="@+id/pname"/>
+                    android:id="@+id/spname"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -53,14 +53,14 @@
                     android:text="SDES"
                     android:textStyle="italic"
                     android:textColor="#6D6969"
-                    android:id="@+id/psdes"/>
+                    android:id="@+id/spsdes"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="COST"
                     android:textColor="#FF0000"
-                    android:id="@+id/pcost"/>
+                    android:id="@+id/spcost"/>
 
 
 
@@ -78,14 +78,42 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/view"
+                    android:id="@+id/sview"
                     android:src="@drawable/ic_baseline_remove_red_eye_24"/>
-                <ImageView
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/cancel"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/ic_close"/>
+                    android:text="Accept order"
+
+                    android:layout_marginTop="5dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sok"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_baseline_check_24"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/scancel"
+                        android:layout_weight="1"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_close"/>
+
+                </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -98,8 +126,8 @@
                     android:layout_height="wrap_content"
                     android:text="Processing..."
                     android:textStyle="bold|italic"
-                    android:id="@+id/status"
-                    android:textColor="#00D515"/>
+                    android:id="@+id/sstatus"
+                    android:textColor="#13E300"/>
 
 
 

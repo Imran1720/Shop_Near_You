@@ -121,12 +121,12 @@ public class SellerPage extends AppCompatActivity {
 
     public  void order(View view)
     {
-        Toast.makeText(this, "orders", Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager().beginTransaction().replace(R.id.framl,new Seller_Products_orders()).commit();
         closeDrawer(drawerLayout);
     }
     public  void products(View view)
     {
-        Toast.makeText(this, "products", Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager().beginTransaction().replace(R.id.framl,new Seller_Products_List()).commit();
         closeDrawer(drawerLayout);
     }
     public  void logout(View view)

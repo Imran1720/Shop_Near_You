@@ -47,35 +47,32 @@ public class CusOrdAdapter extends RecyclerView.Adapter<CusOrdAdapter.ViewHolder
         holder.sdes.setText(list.get(position).getPsdes());
         holder.cost.setText("₹ "+list.get(position).getPcost());
         holder.stat.setText(list.get(position).getStat());
-        if (list.get(position).getStat().equals("Processing..."))
-        {
-            holder.stat.setTextColor(Color.parseColor("#FF8C00"));
-        }
-        else {
-            holder.stat.setTextColor(Color.parseColor("#00A120"));
-        }
+
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 AlertDialog.Builder a = new AlertDialog.Builder(ct);
                 View co = LayoutInflater.from(ct).inflate(R.layout.cosdisplay,null,false);
-                TextView vhead,vname,vnumber,vemail,vplace;
+                TextView vhead,vname,vnumber,vemail,vplace,vnote;
                 vhead =co.findViewById(R.id.vhead);
                 vname =co.findViewById(R.id.vsname);
                 vnumber =co.findViewById(R.id.vsnumber);
                 vemail =co.findViewById(R.id.vsemail);
                 vplace =co.findViewById(R.id.vsplace);
+                vnote = co.findViewById(R.id.note);
+
                 DatabaseReference dr = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(list.get(position).getSid());
                 dr.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                vhead.setText(snapshot.child("actype").getValue(String.class)+" DETAILS");
-                                vname.setText("Name : "+snapshot.child("name").getValue(String.class));
-                                vnumber.setText("Phone : +91"+snapshot.child("phone").getValue(String.class));
-                                vemail.setText("Email : "+snapshot.child("mail").getValue(String.class));
-                                vplace.setText("place : "+snapshot.child("village").getValue(String.class));
+                        vhead.setText(snapshot.child("actype").getValue(String.class)+" DETAILS");
+                        vname.setText("Name : "+snapshot.child("name").getValue(String.class));
+                        vnumber.setText("Phone : +91"+snapshot.child("phone").getValue(String.class));
+                        vemail.setText("Email : "+snapshot.child("mail").getValue(String.class));
+                        vplace.setText("place : "+snapshot.child("village").getValue(String.class));
+                        vnote.setText("Note : please try to contact "+snapshot.child("actype").getValue(String.class).toLowerCase()+" using above details for confirmation.");
 
                     }
 
@@ -95,16 +92,30 @@ public class CusOrdAdapter extends RecyclerView.Adapter<CusOrdAdapter.ViewHolder
             @Override
             public void onClick(View v) {
 
-                DatabaseReference dr= FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
-                        child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ORDERS").child(list.get(position).pid);
+                DatabaseReference d = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                d.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        DatabaseReference dr= FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
+                                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ORDERS").child(list.get(position).getPid());
 
-                DatabaseReference dr2= FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
-                        child(list.get(position).getSid()).child("ORDERS").child(list.get(position).pid);
+                        DatabaseReference dr2= FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").
+                                child(list.get(position).getSid()).child("ORDERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(list.get(position).pid);
 
-                dr.removeValue();
-                dr2.removeValue();
+                        dr.removeValue();
+                        dr2.removeValue();
 
-                Toast.makeText(ct, "ORDER HAS BEEN CANCLED", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(ct, "ORDER HAS BEEN CANCLED", Toast.LENGTH_SHORT).show();
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
         });
@@ -112,7 +123,9 @@ public class CusOrdAdapter extends RecyclerView.Adapter<CusOrdAdapter.ViewHolder
 
 
 
+
     }
+
 
     @Override
     public int getItemCount() {
