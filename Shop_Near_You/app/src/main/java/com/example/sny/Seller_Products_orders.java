@@ -39,6 +39,7 @@ public class Seller_Products_orders extends Fragment {
         list = new ArrayList<>();
         dr = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(user).child("ORDERS");
 
+        //set order recycler view
         dr.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

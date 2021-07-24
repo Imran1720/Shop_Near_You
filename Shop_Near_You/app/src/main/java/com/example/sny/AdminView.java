@@ -61,6 +61,7 @@ public class AdminView extends AppCompatActivity {
         aref = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(uid);
 
         adminview();
+        //default fragment in admin
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.adfl,new Admin_Customer()).commit();
@@ -69,6 +70,7 @@ public class AdminView extends AppCompatActivity {
     }
 
 
+    //load fragment in admin view
     private void loadframe() {
 
         bv.setOnItemSelectedListener(item -> {
@@ -103,7 +105,7 @@ public class AdminView extends AppCompatActivity {
     }
 
 
-
+    //load admin details
     private void adminview() {
         aref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -124,14 +126,14 @@ public class AdminView extends AppCompatActivity {
         });
     }
 
-
+    //logout
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(AdminView.this,MainActivity.class));
         finish();
     }
 
-
+    //homepage
     public void home(View view) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -140,7 +142,7 @@ public class AdminView extends AppCompatActivity {
         closeDrawer(drawerLayout);
 
     }
-
+    //fragment showing all customers
     public void customers(View view) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -148,7 +150,7 @@ public class AdminView extends AppCompatActivity {
         fragmentTransaction.replace(R.id.adfl,new Admin_Customer()).commit();
         closeDrawer(drawerLayout);
     }
-
+    //fragment showing all sellers
     public void sellers(View view) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();

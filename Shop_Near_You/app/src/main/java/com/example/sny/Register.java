@@ -274,10 +274,6 @@ public class Register extends AppCompatActivity {
     }
 
 
-
-
-
-
     public void verifyemail(View view) {
 
         if(!binding.cpass.getText().toString().equals(binding.pass.getText().toString()))
@@ -292,11 +288,11 @@ public class Register extends AppCompatActivity {
         }
         else if(binding.pass.getText().toString().isEmpty())
         {
-            binding.pass.setError("ENTER EMAIL");
+            binding.pass.setError("ENTER PASSWORD");
         }
         else if(binding.cpass.getText().toString().isEmpty())
         {
-            binding.cpass.setError("ENTER EMAIL");
+            binding.cpass.setError("ENTER CONFIRMATION PASSWORD");
         }
         else {
 

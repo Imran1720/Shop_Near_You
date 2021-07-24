@@ -52,6 +52,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.des.setText(list.get(position).getPrsdes());
         holder.cost.setText("₹"+list.get(position).getPrmincost());
 
+        //order product
         holder.b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +64,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
 
+        //remove product from cart
         holder.b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

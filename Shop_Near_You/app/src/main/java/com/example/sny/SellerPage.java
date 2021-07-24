@@ -34,7 +34,7 @@ public class SellerPage extends AppCompatActivity {
     DrawerLayout drawerLayout;
 
 
-    //network objects
+    //Database objects
     String uid;
     DatabaseReference databaseReference;
 
@@ -59,12 +59,14 @@ public class SellerPage extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS").child(uid);
         Sellerview();
 
+        //default fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.framl,new Seller_Products_List()).commit();
 
         LoadFragment();
 
     }
 
+    //Bottom navigation view selection
     private void LoadFragment() {
         bv.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
@@ -91,6 +93,7 @@ public class SellerPage extends AppCompatActivity {
 
     }
 
+    //load profile pic,name and mail
     private void Sellerview() {
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -112,23 +115,28 @@ public class SellerPage extends AppCompatActivity {
         });
     }
 
-
+    //load product list
     public  void home(View view)
     {
         getSupportFragmentManager().beginTransaction().replace(R.id.framl, new Seller_Products_List()).commit();
         closeDrawer(drawerLayout);
     }
 
+    //load orders list
     public  void order(View view)
     {
         getSupportFragmentManager().beginTransaction().replace(R.id.framl,new Seller_Products_orders()).commit();
         closeDrawer(drawerLayout);
     }
+
+    //load products list
     public  void products(View view)
     {
         getSupportFragmentManager().beginTransaction().replace(R.id.framl,new Seller_Products_List()).commit();
         closeDrawer(drawerLayout);
     }
+
+    //log out
     public  void logout(View view)
     {
 
@@ -138,11 +146,14 @@ public class SellerPage extends AppCompatActivity {
 
     }
 
+    //Drawer layout open
     public void openDrawer(View view)
     {
+
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
+    //Drawer layout close
     public void closeDrawer(View view)
     {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))

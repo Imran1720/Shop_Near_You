@@ -45,6 +45,7 @@ public class admin_users_detail extends AppCompatActivity {
 
     }
 
+    //to add photo and other details to admin
     private void display() {
         ref.addValueEventListener(new ValueEventListener() {
             @Override

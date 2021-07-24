@@ -41,6 +41,7 @@ public class Cart extends Fragment {
                 child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
                 child("CART");
 
+        //cart rv
         cart.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -65,6 +66,7 @@ public class Cart extends Fragment {
     }
 
 
+    //adding details to cart adapter
     public void addRV(String prid) {
 
 

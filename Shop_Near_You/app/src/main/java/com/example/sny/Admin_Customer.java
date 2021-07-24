@@ -37,6 +37,7 @@ public class Admin_Customer extends Fragment {
         list = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SNY").child("USERS");
 
+        //apply rv in admin customer  fragment
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
